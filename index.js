@@ -14,6 +14,7 @@ server.get('/', (req, res) => {
 });
 server.post('/api/register', (req, res) => {
   let user = req.body;
+  
   Users.add(user)
     .then(saved => {
       res.status(201).json(saved);
@@ -48,7 +49,8 @@ server.get('/api/users', (req, res) => {
 server.get('/hash', (req, res) => {
   const name = req.query.name;
 
-  const hash = bcrypt.hashSync(name, 8);
+  const hash = bcrypt.hashSync(name, 9);
+  bcrypt.compareSync('name', hash);
   res.send(`the hash for ${name} is ${hash}`)
 })
 
